@@ -16,7 +16,7 @@ NEWSPIDER_MODULE = 'qiubai.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:38.0) Gecko/20100101 Firefox/38.0'
+#USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:38.0) Gecko/20100101 Firefox/38.0'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -53,9 +53,10 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'qiubai.middlewares.MyCustomDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+   'scrapy/contrib.downloadmiddleware.useragent.UserAgentMiddleware':None,
+   'qiubai.middlewares.RandomUAMiddleware': 543,
+}
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
@@ -71,6 +72,11 @@ ROBOTSTXT_OBEY = True
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
+ITEM_PIPELINES ={
+   'qiubai.pipelines.MongoPipeline':300,
+}
+MONGO_URI = "127.0.0.1:27017"
+MONGO_DATABASE = "qiubai"
 #AUTOTHROTTLE_ENABLED = True
 # The initial download delay
 #AUTOTHROTTLE_START_DELAY = 5
